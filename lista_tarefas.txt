@@ -1,0 +1,4 @@
+Varrer a casa
+Fazer compras
+Pagar conta de luz
+ir para academia['Varrer a casa', 'Fazer compras', 'Pagar conta de luz']
