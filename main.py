@@ -1,18 +1,23 @@
 from time import sleep
 from menu import menu
 from arquivos import arquivos
+import os
 
 
-# Logica princiapal
+# Logica principal
 arq = 'lista_tarefas.txt'
+
 if not arquivos.verifica_arq(arq):
     arquivos.cria_arq(arq)
-MN = ['1. Ver tarefas cadastradas',
-      '2. Cadastrar novas tarefas',
-      '3. Remover uma tarefa da lista',
-      '4. Marcar uma tarefa como concluida',
-      '5. Finalizar o gerenciador de tarefas'
-      ]
+
+MN = [
+    '1. Ver tarefas cadastradas',
+    '2. Cadastrar novas tarefas',
+    '3. Remover uma tarefa da lista',
+    '4. Atualizar uma tarefa da lista',
+    '5. Finalizar o gerenciador de tarefas'
+    ]
+
 sistema_on = True
 while sistema_on:
     try:
@@ -30,31 +35,59 @@ while sistema_on:
 
         elif choice == 3:
             while True:
+                menu.titulos('DELETAR UMA TAREFA')
                 lista_de_tarefas = arquivos.tarefas_lista(arq)
 
                 for i, v in enumerate(lista_de_tarefas):
                     print(f'Indice: {i}  Tarefa: {v}')
+                menu.linhas()
 
                 while True:
                     try:
                         task = menu.lerint('Qual terefa deseja remover da'
-                                           'lista?')
+                                           'lista? ')
                         if task in range(len(lista_de_tarefas)):
                             del lista_de_tarefas[task]
                             break
+
                     except KeyboardInterrupt:
                         raise KeyboardInterrupt
+
                     else:
                         print('A lista nao contem esse indice,'
                               'tente novamente')
-                choice = input('Deseja continuar? [S/N] ')
+                break
 
-                if choice in 'Nn':
-                    break
+            arquivos.salva_tarefas_2(arq, lista_de_tarefas)
 
-            arquivos.salva_tarefas(arq, lista_de_tarefas)
         elif choice == 4:
-            ...
+            while True:
+
+                menu.titulos('ATUALIZAR UMA TAREFA')
+                tarefas_para_atualizar = arquivos.tarefas_lista(arq)
+
+                for i, v in enumerate(tarefas_para_atualizar):
+                    print(f'Indice: {i}   Tarefa: {v}')
+                menu.linhas()
+
+                while True:
+                    try:
+                        task = menu.lerint('Qual tarefa deseja atualizar? ')
+
+                        if task in range(len(tarefas_para_atualizar)):
+                            nova_tarefa = input('Qual a nova tarefa? ')
+                            tarefas_para_atualizar[task] = nova_tarefa
+                            break
+
+                    except KeyboardInterrupt:
+                        raise KeyboardInterrupt
+
+                    else:
+                        print('Nao existe esse indice na sua lista de tarefas,'
+                              'tente novamente')
+                break
+
+            arquivos.salva_tarefas_2(arq, tarefas_para_atualizar)
 
         elif choice == 5:
             menu.titulos('FINALIZANDO...')
@@ -68,4 +101,5 @@ while sistema_on:
     except KeyboardInterrupt:
         sistema_on = False
 
+os.system('cls')
 menu.titulos('VOLTE SEMPRE!!')

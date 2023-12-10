@@ -1,4 +1,3 @@
-Varrer a casa
-Fazer compras
-Pagar conta de luz
-ir para academia['Varrer a casa', 'Fazer compras', 'Pagar conta de luz']
+ir para academia
+Pedir uma pizza
+Trocar o pneu do carro
