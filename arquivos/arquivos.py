@@ -41,11 +41,13 @@ def salva_tarefas(arq, task):
         a = open(arq, 'at')
     except FileNotFoundError:
         print('Houve um problema...')
+        raise FileNotFoundError
     else:
         try:
             a.write(f'{task}\n')
         except FileNotFoundError:
             print('Houve um problema tentando salvar a tarefa')
+            raise FileNotFoundError
         else:
             print(f'Tarefa "{task}" salva com sucesso na lista de afazer')
     finally:
@@ -55,17 +57,15 @@ def salva_tarefas(arq, task):
 # Funcao para ler as tarefas em txt e retornar para uma lista.
 def tarefas_lista(arq):
     try:
-        a = open(arq, 'rt')
-        lista_tarefas = []
-        for i, v in enumerate(a):
-            tarefas = v.strip()
-            lista_tarefas.append(tarefas)
-        return lista_tarefas
+        with open(arq, 'rt') as a:
+            lista_tarefas = []
+            for i, v in enumerate(a):
+                tarefas = v.strip()
+                lista_tarefas.append(tarefas)
+            return lista_tarefas
     except FileNotFoundError:
         print('Houve um problema...')
         return []
-    finally:
-        a.close()
 
 
 # Funcao para salvar as tarefas depois te ter removido a tarefa desejada.
