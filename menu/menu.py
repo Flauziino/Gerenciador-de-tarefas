@@ -15,7 +15,6 @@ def titulos(msg):
 
 # Funcao para o menu principal (recebe lista de opcoes)
 def menu(lst):
-    titulos('MENU PRINCIPAL')
     for k, v in enumerate(lst):
         print(f'    {v}')
     linhas()

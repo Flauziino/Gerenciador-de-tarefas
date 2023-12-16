@@ -2,7 +2,7 @@
 chromedriver
 mysql_206
 .env
-
+usuarios.json
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
